@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// app bar for the app
 class Appbar extends StatelessWidget implements PreferredSizeWidget {
@@ -25,7 +26,22 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: implyLeading,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      leading: implyLeading
+          ? IconButton(
+              onPressed: () {
+                if (Navigator.canPop(context)) Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                size: 24,
+                color: Color(0xFF313B49),
+              ),
+            )
+          : null,
       title: Text(
         title,
         style: const TextStyle(
@@ -34,6 +50,7 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
+      centerTitle: true,
       actions: actions?.map((action) {
         return IconButton(
           onPressed: () {
@@ -42,7 +59,7 @@ class Appbar extends StatelessWidget implements PreferredSizeWidget {
           icon: Icon(
             action.icon,
             size: 24,
-            color: const Color(0xFFD9D9D9),
+            color: const Color(0xFFAFB9CA),
           ),
         );
       }).toList(),
